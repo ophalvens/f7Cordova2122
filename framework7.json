@@ -1,0 +1,32 @@
+{
+  "cwd": "C:\\dev\\projecten\\wm\\2122\\f7Corova2122",
+  "type": [
+    "cordova"
+  ],
+  "name": "f7Cordova2122",
+  "framework": "core",
+  "template": "tabs",
+  "bundler": false,
+  "cssPreProcessor": false,
+  "theming": {
+    "customColor": false,
+    "color": "#007aff",
+    "darkTheme": false,
+    "iconFonts": true,
+    "fillBars": true
+  },
+  "customBuild": false,
+  "pkg": "be.stevenop.f7cordova2122",
+  "cordova": {
+    "folder": "cordova",
+    "platforms": [
+      "android"
+    ],
+    "plugins": [
+      "cordova-plugin-statusbar",
+      "cordova-plugin-keyboard",
+      "cordova-plugin-splashscreen",
+      "cordova-plugin-device"
+    ]
+  }
+}
