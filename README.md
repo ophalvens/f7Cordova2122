@@ -1,5 +1,11 @@
 # f7Cordova2122
 
+---
+<details>
+<summary>Stap 1</summary>
+
+# Stap 1
+
 ## Stappen om tot deze versie van de app te komen :
  * framework7-cli cordova installeren
  ```
@@ -12,8 +18,41 @@
  * kies in de UI die verschijnt de gewenste opties. 
    De opties staan hieronder beschreven.
  * indien het builden voor jou een foutmelding geeft ivm buildtools 31.0.0, verwijder dan (tijdelijk) buildtools versie 31 in je SDK manager in Android Studio.
+</details>
+---
+# Stap 2
+
+## 'Barebones' Framework7-app
+
+In deze branch zijn een aantal bestanden en opties verwijderd, zodat we een meer 'lege' app hebben, vanwaar we kunnen opbouwen.
+
+### Verwijderd 
+ * in index.html
+   * right panel
+   * het icoontje om de right panel te openen :
+     * id="view-home" > class="page" > class="navbar navbar-large" > class="navbar-inner" > ```div class="right"```
+   * commentaar
+   * content ivm een popup, panels, login-scherm  
+ * de pages die we niet willen gebruiken verwijderd
+   * plus die pages verwijderd uit ```routes.js```
 
 
+### Aangepast 
+ * Wat placeholders toegevoegd.
+ * Een paar aanpassingen zodat de 'Home', 'Locatie' en 'Data' zichtbaar zijn in ```index.html```.
+ * Een paar icoontjes :
+   * https://framework7.io/icons/  -> F7 icons
+   * https://material.io/resources/icons/?style=baseline -> MD icons
+ * In app.js
+   * De login scherm code (we hebben die verwijderd uit de html)
+ * In routes.js
+   * ```routes.js``` aanpassen voor de toegevoegde/verwijderde bestanden
+
+## Toegevoegde bestanden
+ * gegevens.html
+ * locatie.html
+
+---
 ## Framework7 CLI Options
 
 Framework7 app created with following options:

@@ -1,24 +1,27 @@
 <template>
-  <div class="page" data-name="catalog">
+  <div class="page" data-name="gegevens">
     <div class="navbar">
       <div class="navbar-bg"></div>
       <div class="navbar-inner sliding">
-        <div class="title">Catalog</div>
+        <div class="title">Gegevens</div>
       </div>
     </div>
     <div class="page-content">
-      <div class="list links-list">
+      <div class="block-title">Data</div>
+      <div class="block block-strong">
+        <p>Hier gaan we met externe gegevens werken.</p>
+      </div>
+      <!-- Dit is voorlopig uitgeschakeld tot later -->
+      <!--
+        <div class="list links-list">
         <ul>
           ${products.value.map((product) => $h`
-            <li><a href="/product/${product.id}/">${product.title}</a></li>
+            <li><a href="/gegevens/${product.id}/">${product.title}</a></li>
           `)}
         </ul>
       </div>
-      ${products.value.length === 3 && $h`
-        <div class="block">
-          <button class="button button-fill" @click=${addProduct}>Add Product</Button>
-        </div>
-      `}
+      -->
+     
     </div>
   </div>
 </template>
