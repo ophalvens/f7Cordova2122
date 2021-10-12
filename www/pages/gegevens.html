@@ -3,39 +3,108 @@
     <div class="navbar">
       <div class="navbar-bg"></div>
       <div class="navbar-inner sliding">
-        <div class="title">Gegevens</div>
+        <div class="title">Data</div>
       </div>
     </div>
     <div class="page-content">
-      <div class="block-title">Data</div>
-      <div class="block block-strong">
-        <p>Hier gaan we met externe gegevens werken.</p>
-      </div>
-      <!-- Dit is voorlopig uitgeschakeld tot later -->
-      <!--
-        <div class="list links-list">
-        <ul>
-          ${products.value.map((product) => $h`
-            <li><a href="/gegevens/${product.id}/">${product.title}</a></li>
-          `)}
-        </ul>
-      </div>
-      -->
-     
+        <div class="block ">
+          <div class="content-block">
+            <form id="product">
+              <div class="list">
+                <ul>
+                  <li class="item-content item-input">
+                    <div class="item-inner">
+                      <div class="item-input-wrap">
+                        <input type="text" id="PR_naam" placeholder="Productnaam"/>
+                        <span class="input-clear-button"></span>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="item-content item-input">
+                    <div class="item-inner">
+                      <div class="item-input-wrap">
+                        <input type="number" id="PR_prijs" placeholder="Prijs in euro"/>
+                        <span class="input-clear-button"></span>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              
+                <ul class="row">
+                  <li class="col">
+                    <label class="item-radio item-content">
+                      <input type="radio" name="categorie" value="groente" checked />
+                      <i class="icon icon-radio"></i>
+                      <div class="item-inner">
+                        <div class="item-title">Groente</div>
+                      </div>
+                    </label>
+                  </li>
+                  <li class="col">
+                    <label class="item-radio item-content">
+                      <input type="radio" name="categorie" value="fruit"/>
+                      <i class="icon icon-radio"></i>
+                      <div class="item-inner">
+                        <div class="item-title">Fruit</div>
+                      </div>
+                    </label>
+                  </li>
+                </ul>
+                <a href="#" id="btnVoegToe" @click=${voegProductToe} class="button button-fill button-raised">Voeg product toe</a>
+              </div>
+    
+            </form>
+            <div id="resultaat" class="content-block-inner"></div>
+            <div id="pList" class="content-block-inner"></div>
+    
+          </div>
+        </div>
     </div>
   </div>
 </template>
 <script>
-  export default (props, { $store }) => {
-    const products = $store.getters.products;
+  export default (props, { $f7, $on, $update }) => {
 
-    const addProduct = () => {
-      $store.dispatch('addProduct', {
-        id: '4',
-        title: 'Apple iPhone 12',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi tempora similique reiciendis, error nesciunt vero, blanditiis pariatur dolor, minima sed sapiente rerum, dolorem corrupti hic modi praesentium unde saepe perspiciatis.'
+    let data = [];
+
+    
+
+    const voegProductToe = () => {
+      // voeg een nieuw product toe
+      // voegToe();
+      let cat = $('input[name=categorie]:checked').val();
+      // body data type must match "Content-Type" header
+      opties.body = JSON.stringify({
+        format: "json",
+        PR_naam: $("#PR_naam").val(),
+        PR_prijs:  $("#PR_prijs").val(),
+        PR_CT_ID: (cat == "fruit" ? 1 : 2)
       });
-    }
+
+      fetch(baseApiAddress + "PRODUCTSadd.php", opties)
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(responseData){
+          if(responseData.status === "fail") {
+            app.dialog.alert("Sorry, probeer nog een keer met meer data ...", responseData.error);
+          } else {
+            app.dialog.alert("ok", "Product toegevoegd");
+          }
+          // refresh de lijst
+          getList();
+        })
+        .catch(function(error) {
+          // verwerk de fout
+          app.dialog.alert('POST failed. :' + errorThrown, "Toevoegen is niet gelukt");
+        });
+
+    };
+
+    $on('pageInit', () => {
+      // haal de gegevens op;
+      getList();
+    });
 
     return $render;
   }

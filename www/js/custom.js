@@ -35,3 +35,86 @@ function positionError(error) {
             break;
     }
 }
+
+// ---------- uitbreiding voorbeeld stap-4 gegevens ---------------- //
+
+// De volgende lijn moet je aanpassen zodat de url verwijst naar
+// het bestand op jouw server (zie les 2 : php).
+var baseApiAddress = "https://stevenop.be/wm/api/";
+var opties = {
+  method: "POST", // *GET, POST, PUT, DELETE, etc.
+  mode: "cors", // no-cors, *cors, same-origin
+  cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+  credentials: "omit", // include, *same-origin, omit
+  headers: {
+    "Content-Type": "application/json",
+    "Accept": "application/json"
+  },
+  body:{}
+};
+
+const getList = () => {
+    // de producten van de server opvragen en weergeven dmv de alerter functie
+
+    // body data type must match "Content-Type" header
+    opties.body = JSON.stringify({
+      format: "json"
+      //, user : "test" // als je de authentication in de api op true zet, heb je dit hier wel nodig 
+      //, password : "test" // als je de authentication in de api op true zet, heb je dit hier wel nodig
+    }); 
+
+    // test de api
+    fetch(baseApiAddress + "PRODUCTSget.php", opties)
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(responseData){
+        // de verwerking van de data
+        var list = responseData.data;
+
+        if (list.length > 0) {
+          // er zit minstens 1 item in list, we geven dit ook onmiddelijk weer
+          let tlines = "";
+          for (let i = 0, len = list.length; i < len; i++) {
+              tlines += `<div class='row'><span class='col'>${list[i].PR_naam} ( ${list[i].CT_OM} )</span><span class='col'>&euro;${ list[i].PR_prijs}</span><button onClick='verwijderProduct(${list[i].PR_ID});' class='button button-fill button-raised button-small color-orange col'>Verwijder</button></div>`;
+          }
+
+          $("#pList").html(tlines);
+          
+        } else {
+          app.dialog.alert("Producten konden niet opgevraagd worden");
+        }
+
+      })
+      .catch(function(error) {
+        // verwerk de fout
+        app.dialog.alert("fout : " + error);
+      });
+  };
+
+
+function verwijderProduct(PR_ID) {
+  // fetch request opzetten om een item te verwijderen.
+  // body data type must match "Content-Type" header
+  opties.body = JSON.stringify({
+    format: "json",
+    PR_ID: PR_ID
+  });
+
+  fetch(baseApiAddress + "PRODUCTSdelete.php", opties)
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(responseData){
+      // de verwerking van de data
+      app.dialog.alert("Die zien we nooit meer ... terug!", "Item verwijderd");
+      // refresh de lijst
+      // getList kunnen we niet van hier uit aanroepen, dus we moeten dit via een omweg doen
+      getList();
+
+    })
+    .catch(function(error) {
+      // verwerk de fout
+      app.dialog.alert('POST failed. :' + errorThrown, "Item toegevoegd");
+    });
+}

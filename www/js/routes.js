@@ -3,18 +3,17 @@ var routes = [
   {
     path: '/',
     url: './index.html',
+    name: 'home',
   },
   {
     path: '/gegevens/',
     componentUrl: './pages/gegevens.html',
-  },
-  {
-    path: '/gegevens/:id/',
-    componentUrl: './pages/product.html',
+    name: 'gegevens',
   },
   {
     path: '/locatie/',
     componentUrl: './pages/locatie.html',
+    name: 'locatie',
   },
   // Default route (404 page). MUST BE THE LAST
   {

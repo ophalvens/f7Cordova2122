@@ -55,6 +55,9 @@ In deze branch zijn een aantal bestanden en opties verwijderd, zodat we een meer
  * locatie.html
 </details>
 
+<details>
+<summary>Stap 3</summary>
+
 # Stap 3
 ## Locatie toevoegen
  *  de locatie plugin toevoegen met 
@@ -90,8 +93,36 @@ Enkele caveats :
   * USB debugging aanzetten (SETTINGS > DEVELOPER OPTIONS)
   * toestemming geven aan je computer wanneer je virtuele toestel een melding geeft ivm het toestaan van adb toegang naar jouw computer
 
+</details>
+
+# Stap 4
+## Gegevens opvragen
 
 
+* Let op de ```content-security-policy``` in ```index.html``` : jouw domein moet daar in staan of requests gaan daar niet geraken.
+
+* **`/www/`**
+  * de code van je Cordova project
+* Deze code gaat uit van een API met de structuur zoals we die hebben gezien in de vorige lessen.
+  In dit voorbeeld wordt gewerkt met de API op mijn domein. Pas deze instructies aan naar het domein en de locatie van jouw API
+
+### Geen php bestanden in je Cordova app
+Een php pagina wordt enkel verwerkt als die vanop een webserver met php wordt bevraagd. Hoewel er in het voorbeeld 2 php bestanden in de map `/php` zitten, maken deze bestanden geen deel uit van je Cordova project.
+
+### Je eigen server
+Hoewel je met het voorbeeld van de les kan werken, wil je waarschijnlijk met je eigen code experimenteren voor jouw project.
+
+* Vervang `https://stevenop.be` in:
+  * `index.html`
+  * `custom.js`
+
+### PHP code
+In de map `php` vind je 2 extra bestanden als toevoeging aan de API die we gezien hebben :
+* `php/PRODUCTSadd.php` -> een product toevoegen
+* `php/PRODUCTSdelete.php` -> een product verwijderen
+
+Als je deze delen nog niet had uitgewerkt voor de vorige oefeningen, kan je deze bestanden
+gebruiken. 
 
 
 ---
