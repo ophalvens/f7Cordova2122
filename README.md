@@ -19,7 +19,9 @@
    De opties staan hieronder beschreven.
  * indien het builden voor jou een foutmelding geeft ivm buildtools 31.0.0, verwijder dan (tijdelijk) buildtools versie 31 in je SDK manager in Android Studio.
 </details>
----
+<details>
+<summary>Stap 2</summary>
+
 # Stap 2
 
 ## 'Barebones' Framework7-app
@@ -51,6 +53,46 @@ In deze branch zijn een aantal bestanden en opties verwijderd, zodat we een meer
 ## Toegevoegde bestanden
  * gegevens.html
  * locatie.html
+</details>
+
+# Stap 3
+## Locatie toevoegen
+ *  de locatie plugin toevoegen met 
+ ```
+ cordova plugin add cordova-plugin-geolocation
+ ```
+ Je voert dit uit in de map cordova in jouw project.
+
+ Meer informatie over deze plugin vind je op : https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-geolocation/index.html
+
+
+
+## 3 Nieuwe functies toegevoegd 
+  * **showPosition** : toont details van je positie wanneer een positie object returned (*app.js*)
+  * **positionError** : toont een boodschap indien er een fout is met de locatie (*app.js*)
+  * **getLocatie** 
+    * start de watch van de positie (*locatie.html*)
+    * zie de link tussen **@click** en de methods in dit script
+
+Test als je kan de app op je eigen toestel via het npm script:
+```
+build-run-cordova
+```
+Dit gaat er van uit dat je dit hebt toegevoegd aan een van de vorige stappen in de presentatie.
+
+Als je niet op je eigen toestel kan testen start je eerst de emulator op voordat je de `build-run-cordova`
+
+Enkele caveats :
+
+* Test eerst of je emulator wel kan opstarten
+* Op sommige versies van je emulator moet je
+  * in het virtuele toestel de developers options unlocken
+  * USB debugging aanzetten (SETTINGS > DEVELOPER OPTIONS)
+  * toestemming geven aan je computer wanneer je virtuele toestel een melding geeft ivm het toestaan van adb toegang naar jouw computer
+
+
+
+
 
 ---
 ## Framework7 CLI Options

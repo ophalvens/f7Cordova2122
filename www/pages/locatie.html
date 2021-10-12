@@ -1,14 +1,61 @@
-<div class="page" data-name="locatie">
-    <div class="navbar">
-      <div class="navbar-bg"></div>
-      <div class="navbar-inner sliding">
-        <div class="title">Locatie</div>
+<template>
+    <div class="page" data-name="locatie">
+      <div class="navbar">
+        <div class="navbar-bg"></div>
+        <div class="navbar-inner sliding">
+          <div class="title">Locatie</div>
+        </div>
+      </div>
+      <div class="page-content">
+        <div class="block block-strong">
+          <p><a href="#" id="btnLocatie" class="button button-fill button-raised" @click=${getLocatie}>Haal de locatie op</a></p>
+          <p id="locatieResultaat"></p>
+        </div>
       </div>
     </div>
-    <div class="page-content">
-      <div class="block-title">Locatie</div>
-      <div class="block block-strong">
-        <p>Hier gaan we met onze locatie werken.</p>
-      </div>
-    </div>
-  </div>
+  </template>
+<script>
+    export default () => {
+        //  Script templates hebben een export default functie nodig
+        // die ook een DOLLARrender returnt. 
+        // (DOLLAR vervang je door het dollar-teken, wat hier niet kan
+        // mag omdat anders de F7 parser in de war is)
+
+        // In dit voorbeeld worden er geen andere parameters aan deze
+        // template doorgegeven, indien wel, zouden deze in de signatuur
+        // van de default functie moeten staan.
+
+        // Merk op hoe getLocatie aan de knop hierboven is gelinkt :
+        // @click=${getLocatie}
+        
+        const getLocatie = () => {
+            // haal de locatie op
+
+            let self = this;
+  
+            if (navigator.geolocation) {
+                let accurate = true;
+                if(app.watchPositionID !== null){
+                    // de vorige watch eerst stoppen, of we hebben meerdere
+                    // simultane lopen.
+                    navigator.geolocation.clearWatch(app.watchPositionID);
+                }
+                
+                app.watchPositionID = navigator.geolocation.watchPosition(
+                    showLocation, // showLocation staat in app.js
+                    positionError, // positionError staat in app.js
+                    { 
+                        enableHighAccuracy: accurate,
+                        maximumAge: 10 * 1000
+                    }
+                );
+                
+            } else {
+                self.$app.dialog.alert('Het spijt me, maar geolocatie wordt niet ondersteund door deze browser.', 'Geen geolocatie ondersteuning');
+            }
+        }
+
+        return $render;
+    }
+
+</script>
